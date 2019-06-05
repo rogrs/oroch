@@ -1,0 +1,23 @@
+{
+  "name": "oroch",
+  "description": "A nodejs app using heroku mongodb",
+  "repository": "https://github.com/rogrs/oroch",
+  "logo": "https://github.com/rogrs/oroch/logo.png",
+  "keywords": ["express", "nodejs", "heroku", "mongodb",],
+  "env": {},
+  "engines": {
+    "node": "12.1.0",
+    "npm": "6.x"
+  },
+  "scripts": {
+    "start": "npm start"
+  },
+  "formation": {},
+  "addons": [
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
-  "name": "upload",
+  "name": "oroch",
   "version": "1.0.0",
-  "description": "upload file",
+  "description": "oroch project",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -14,12 +14,14 @@
   "author": "rogerio ribeiro",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "1.19.0",
+    "concurrently": "^3.6.0",
     "cors": "^2.8.5",
-    "formidable": "^1.2.1",
     "express": "^4.16.4",
-    "concurrently": "^3.6.0"
+    "formidable": "^1.2.1",
+    "mongoose": "5.5.13"
   },
   "devDependencies": {
-    "nodemon": "^1.18.7"
+    "nodemon": "1.19.1"
   }
 }

@@ -4,14 +4,21 @@ var express  = require('express'),
 
     // Mongoose Schema definition
     Schema = new mongoose.Schema({
-      id: mongoose.Schema.Types.ObjectId,
-      document : Object
+      document : Object,
+      updatedAt: {
+        type: Date,
+        default: Date.now
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now
+      }
     }),
 
     Behaviour = mongoose.model('Behaviour', Schema);
 
  
- var databaseString =  process.env.MONGOLAB_URI  || 'mongodb+srv://oroch:oroch2019@cluster0-y43qc.mongodb.net/test?retryWrites=true&w=majority'
+ var databaseString =  process.env.MONGODB_URI  || 'mongodb+srv://oroch:oroch2019@cluster0-y43qc.mongodb.net/test?retryWrites=true&w=majority'
 mongoose.connect(databaseString, function (error) {
     if (error) console.error(error);
     else console.log('mongo connected');
@@ -23,10 +30,14 @@ express()
   .use(bodyParser.urlencoded({ extended: true })) // support encoded bodies
 
   .get('/', function (req, res) {
+    
     res.json(200, {msg: 'OK' });
   })
   .get('/api', function (req, res) {
-    res.json(200, {msg: 'API OK' });
+    res.json({
+      status: 200,
+      message: 'Welcome API  Its Working!',
+   );
   })
 
   .get('/api/v1/behaviour', function (req, res) {
@@ -63,7 +74,7 @@ express()
     // http://mongoosejs.com/docs/api.html#model_Model.findById
     Behaviour.findById( req.params.id, function ( err, behaviour ) {
     behaviour.document = req.body.document;
-     
+    behaviour.updatedAt = Date.now;
       // http://mongoosejs.com/docs/api.html#model_Model-save
       behaviour.save( function ( err, behaviour ){
         res.json(200, behaviour);

@@ -5,14 +5,8 @@ var express  = require('express'),
     // Mongoose Schema definition
     Schema = new mongoose.Schema({
       document : Object,
-      updatedAt: {
-        type: Date,
-        default: Date.now
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now
-      }
+      updatedAt: { type: Date, default: Date.now },
+      createdAt: { type: Date, default: Date.now }
     }),
 
     Behaviour = mongoose.model('Behaviour', Schema);
@@ -31,13 +25,10 @@ express()
 
   .get('/', function (req, res) {
     
-    res.json(200, {msg: 'OK' });
+    res.json(200, {message: 'OK' });
   })
   .get('/api', function (req, res) {
-    res.json({
-      status: 200,
-      message: 'Welcome API  Its Working!',
-   );
+    res.json(200, {message: 'Welcome API  Its Working!' });
   })
 
   .get('/api/v1/behaviour', function (req, res) {
@@ -59,7 +50,7 @@ express()
   .del('/api/v1/behaviour', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-remove
     Behaviour.remove({ completed: true }, function ( err ) {
-      res.json(200, {msg: 'OK'});
+      res.json(200, {message: 'OK'});
     });
   })
 
@@ -87,7 +78,7 @@ express()
     Behaviour.findById( req.params.id, function ( err, behaviour ) {
       // http://mongoosejs.com/docs/api.html#model_Model.remove
       behaviour.remove( function ( err, behaviour ){
-        res.json(200, {msg: 'OK'});
+        res.json(200, {message: 'OK'});
       });
     });
   })

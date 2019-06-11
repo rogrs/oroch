@@ -2,8 +2,8 @@
   "name": "oroch",
   "description": "A nodejs app using heroku mongodb",
   "repository": "https://github.com/rogrs/oroch",
-  "logo": "https://github.com/rogrs/oroch/logo.png",
-  "keywords": ["express", "nodejs", "heroku", "mongodb",],
+  "logo": "https://vignette.wikia.nocookie.net/p__/images/4/4c/Orochi.jpg/revision/latest?cb=20190530162153&path-prefix=protagonist",
+  "keywords": ["express", "nodejs", "heroku", "mongodb"],
   "env": {},
   "engines": {
     "node": "12.1.0",

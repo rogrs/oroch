@@ -1,22 +1,10 @@
 var express  = require('express'),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),
+      bodyParser = require('body-parser'),
 
     // Mongoose Schema definition
-    Schema = new mongoose.Schema({
-      document : Object,
-      updatedAt: { type: Date, default: Date.now },
-      createdAt: { type: Date, default: Date.now }
-    }),
+    Behaviour = require('./src/models/behaviour');
 
-    Behaviour = mongoose.model('Behaviour', Schema);
-
- 
- var databaseString =  process.env.MONGODB_URI  || 'mongodb+srv://oroch:oroch2019@cluster0-y43qc.mongodb.net/test?retryWrites=true&w=majority'
-mongoose.connect(databaseString, {useNewUrlParser: true}, function (error) {
-    if (error) console.error(error);
-    else console.log('mongo connected');
-});
+    var conn = require('./src/config/connection')
 
 express()
   // https://scotch.io/tutorials/use-expressjs-to-get-url-and-post-parameters

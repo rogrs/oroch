@@ -13,7 +13,7 @@ var express  = require('express'),
 
  
  var databaseString =  process.env.MONGODB_URI  || 'mongodb+srv://oroch:oroch2019@cluster0-y43qc.mongodb.net/test?retryWrites=true&w=majority'
-mongoose.connect(databaseString, function (error) {
+mongoose.connect(databaseString, {useNewUrlParser: true}, function (error) {
     if (error) console.error(error);
     else console.log('mongo connected');
 });
@@ -84,4 +84,4 @@ express()
   })
 
   .use(express.static(__dirname + '/'))
-  .listen(process.env.PORT || 5000);
+  .listen(process.env.PORT || 4200);

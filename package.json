@@ -15,7 +15,8 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "formidable": "^1.2.1",
-    "mongoose": "5.5.13"
+    "mongoose": "5.5.13",
+    "waterline": "^0.13.6"
   },
   "devDependencies": {
     "nodemon": "1.19.1"

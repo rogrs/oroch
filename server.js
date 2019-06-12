@@ -1,75 +1,24 @@
-var express  = require('express'),
-      bodyParser = require('body-parser'),
+const express  = require('express');
 
-    // Mongoose Schema definition
-    Behaviour = require('./src/models/behaviour');
+const bodyParser = require('body-parser');
 
-    var conn = require('./src/config/connection')
+const port =process.env.PORT || 4200;
 
-express()
-  // https://scotch.io/tutorials/use-expressjs-to-get-url-and-post-parameters
-  .use(bodyParser.json()) // support json encoded bodies
-  .use(bodyParser.urlencoded({ extended: true })) // support encoded bodies
+var index = require('./src/routers/index-routers.js');
+var behaviour = require('./src/routers/behaviour-routers.js');
+//var user = require('./src/routers/user-routers.js');
 
-  .get('/', function (req, res) {
-    
-    res.json(200, {message: 'OK' });
-  })
-  .get('/api', function (req, res) {
-    res.json(200, {message: 'Welcome API  Its Working!' });
-  })
+const app = express();
 
-  .get('/api/v1/behaviour', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#query_Query-find
-    Behaviour.find( function ( err, behaviours ){
-      res.json(200, behaviours);
-    });
-  })
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-  .post('/api/v1/behaviour', function (req, res) {
-    var behaviour = new Behaviour( req.body );
-    behaviour.id = behaviour._id;
-    // http://mongoosejs.com/docs/api.html#model_Model-save
-    behaviour.save(function (err) {
-      res.json(200, behaviour);
-    });
-  })
+app.use('/api/v1', index);
+app.use('/api/v1/behaviour', behaviour);
+//app.use('/api/v1/user', user);
 
-  .del('/api/v1/behaviour', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#query_Query-remove
-    Behaviour.remove({ completed: true }, function ( err ) {
-      res.json(200, {message: 'OK'});
-    });
-  })
+app.use(express.static(__dirname + '/'));
 
-  .get('/api/v1/behaviour/:id', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Behaviour.findById( req.params.id, function ( err, behaviour ) {
-      res.json(200, behaviour);
-    });
-  })
-
-  .put('/api/v1/behaviour/:id', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Behaviour.findById( req.params.id, function ( err, behaviour ) {
-    behaviour.document = req.body.document;
-    behaviour.updatedAt = Date.now;
-      // http://mongoosejs.com/docs/api.html#model_Model-save
-      behaviour.save( function ( err, behaviour ){
-        res.json(200, behaviour);
-      });
-    });
-  })
-
-  .del('/api/v1/behaviour/:id', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Behaviour.findById( req.params.id, function ( err, behaviour ) {
-      // http://mongoosejs.com/docs/api.html#model_Model.remove
-      behaviour.remove( function ( err, behaviour ){
-        res.json(200, {message: 'OK'});
-      });
-    });
-  })
-
-  .use(express.static(__dirname + '/'))
-  .listen(process.env.PORT || 4200);
+app.listen(port, () => {
+  console.log('Listening on port %s', port );
+});

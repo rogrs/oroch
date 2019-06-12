@@ -7,6 +7,7 @@ const port =process.env.PORT || 4200;
 var index = require('./src/routers/index-routers.js');
 var behaviour = require('./src/routers/behaviour-routers.js');
 //var user = require('./src/routers/user-routers.js');
+var upload = require('./src/routers/upload-routers.js');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/v1', index);
 app.use('/api/v1/behaviour', behaviour);
 //app.use('/api/v1/user', user);
+app.use('/api/v1/upload', upload);
 
 app.use(express.static(__dirname + '/'));
 

@@ -3,24 +3,25 @@ var express = require('express');
 var router = express.Router();
 
 
-Behaviour = require('../models/behaviour');
+Person = require('../models/person');
 
 var conn = require('../config/connection');
 
 
+
 router.get('/', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-find
-    Behaviour.find( function ( err, behaviours ){
-      res.status(200).json(behaviours);
+    Person.find( function ( err, persons ){
+      res.status(200).json(persons);
     });
   })
 
 router.post('/', function (req, res) {
-    var behaviour = new Behaviour( req.body );
-    behaviour.id = behaviour._id;
+    var person = new Person(req.body );
+    person.id = person._id;
     // http://mongoosejs.com/docs/api.html#model_Model-save
-    behaviour.save(function (err) {
-      res.status(201).json(behaviour);
+    person.save(function (err) {
+      res.status(201).json(person);
     });
   })
 
@@ -28,19 +29,18 @@ router.post('/', function (req, res) {
 
 router.get('/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Behaviour.findById( req.params.id, function ( err, behaviour ) {
-      res.status(200).json(behaviour);
+    Person.findById( req.params.id, function ( err, person ) {
+      res.status(200).json(person);
     });
   })
 
 router.put('/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Behaviour.findById( req.params.id, function ( err, behaviour ) {
-    behaviour.document = req.body.document;
-    behaviour.updatedAt = Date.now;
+    Person.findById( req.params.id, function ( err, person ) {
+    person.updatedAt = Date.now;
       // http://mongoosejs.com/docs/api.html#model_Model-save
-      behaviour.save( function ( err, behaviour ){
-        res.status(200).json(behaviour);
+      person.save( function ( err, person ){
+        res.status(200).json(person);
       });
     });
   })

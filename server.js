@@ -18,6 +18,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/', (req, res) => {
+  res.send('ci with travis');
+});
+
 app.use('/api/v1', index);
 app.use('/api/v1/behaviour', behaviour);
 app.use('/api/v1/upload', upload);
@@ -29,3 +33,5 @@ app.use(express.static(__dirname + '/'));
 app.listen(port, () => {
   console.log('Listening on port %s', port );
 });
+
+module.exports = app;

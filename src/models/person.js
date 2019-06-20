@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+let mongoose = require('mongoose')
+let mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 
 const personSchema = Schema({
@@ -7,7 +8,7 @@ const personSchema = Schema({
   stories: [{ type: Schema.Types.ObjectId, ref: 'Story' }],
   updatedAt: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now }
-});
+}).plugin(mongoosePaginate);
 
 
 

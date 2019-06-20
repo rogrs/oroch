@@ -9,8 +9,15 @@ Behaviour = require('../models/behaviour');
 
 router.get('/', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-find
-    Behaviour.find( function ( err, behaviours ){
-      res.status(200).json(behaviours);
+
+
+    var options = {
+      page: req.query.page || 1,
+      limit: req.query.limit || 10
+    };
+  
+    Behaviour.paginate({}, options).then(function (results) {
+      res.status(200).json(results);
     });
   })
 

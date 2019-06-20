@@ -7,6 +7,6 @@ const storySchema = Schema({
     author: { type: Schema.Types.ObjectId, ref: 'Person' },
     title: String,
     fans: [{ type: Schema.Types.ObjectId, ref: 'Person' }]
-  });
+  }).plugin(mongoosePaginate);
   
   const Story = mongoose.model('Story', storySchema);

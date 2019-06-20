@@ -11,8 +11,13 @@ var conn = require('../config/connection');
 
 router.get('/', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-find
-    Person.find( function ( err, persons ){
-      res.status(200).json(persons);
+    var options = {
+      page: req.query.page || 1,
+      limit: req.query.limit || 10
+    };
+  
+    Person.paginate({}, options).then(function (results) {
+      res.status(200).json(results);
     });
   })
 

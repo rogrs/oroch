@@ -8,3 +8,6 @@ node_js:
   - "stable"
 services:
   - mongodb
+script:
+  - npm test
+  - npm run build

@@ -1,15 +1,20 @@
-'use strict';
+let mongoose = require('mongoose')
+let mongoosePaginate = require('mongoose-paginate-v2');
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-var behaviourSchema  = new Schema({
-      document : Object,
+let  behaviourSchema  = new mongoose.Schema({
+      name :{type: String, required: true},
+      type: {type: String, unique: true, required: true},
+      dateField: {type: String, required: true},
+      structure: {type: Object, required: true},
+      valid: Boolean,
+      actions: {type: Object, required: true},
       updatedAt: { type: Date, default: Date.now },
       createdAt: { type: Date, default: Date.now }
 
-})
+}).plugin(mongoosePaginate);
 
-var Behaviour = mongoose.model('Behaviour', behaviourSchema);
+var Behaviour = module.exports = mongoose.model('Behaviour', behaviourSchema);
 
-module.exports = Behaviour;
+module.exports.get = function (callback, limit) {
+      Behaviour.find(callback).limit(limit);
+}

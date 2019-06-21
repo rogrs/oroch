@@ -9,3 +9,8 @@ language: node_js
 node_js:
   # - "latest" # figure out how this should work! no example of this in travis ci docs
   - "10.11.0"
+before_script:
+  - npm install
+script:
+  - node server.js &
+  - npm test

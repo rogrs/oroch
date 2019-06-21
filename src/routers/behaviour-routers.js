@@ -22,14 +22,12 @@ router.get('/', function (req, res) {
   })
 
 router.post('/', function (req, res) {
-    var behaviour = new Behaviour( req.body );
-    behaviour.id = behaviour._id;
-    // http://mongoosejs.com/docs/api.html#model_Model-save
-    behaviour.save(function (err) {
-      if(err) {res.status(404).json(err)}
-      res.status(201).json(behaviour);
-    });
-  })
+  Behaviour.findOneAndUpdate({}, req.body , {upsert:true}, function(err, result){
+    if (err) return res.send(400, { error: err });
+    return res.status(201).json(result);
+  });
+})
+
 
 
 

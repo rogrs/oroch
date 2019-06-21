@@ -6,7 +6,7 @@ var should = require("should");
 var server = supertest.agent("http://localhost:3000");
 
 // UNIT test begin
-
+/*
 describe("SAMPLE unit test",function(){
 
   // #1 should return home page
@@ -28,4 +28,4 @@ describe("SAMPLE unit test",function(){
     });
   });
 
-});
+});*/

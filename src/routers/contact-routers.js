@@ -22,12 +22,18 @@ router.get('/', function (req, res) {
   })
 
 router.post('/', function (req, res) {
-    
-    Contact.findOneAndUpdate({}, req.body , {upsert:true}, function(err, result){
-      if (err) return res.send(400, { error: err });
-      return res.status(201).json(result);
-    });
+  var result = new Contact(req.body);
+  result.id = result._id;
+
+  result.save(function (err) {
+    if (err) {
+      res.status(400).json(err);
+    } else {
+      res.status(201).json(result);
+    }
+  });
 })
+
 
 
 
@@ -51,6 +57,21 @@ router.put('/:id', function (req, res) {
         if(err) {res.status(400).json(err)}
         res.status(200).json(contact);
       });
+    });
+  })
+
+
+  router.delete('/:id', function (req, res) {
+    Contact.findByIdAndRemove(req.params.id, (err, result) => {
+        // As always, handle any potential errors:
+        if (err) return res.status(400).send(err);
+        // We'll create a simple object to send back with a message and the id of the document that was removed
+        // You can really do this however you want, though.
+        const response = {
+            message: "Contact successfully deleted",
+            id: Contact._id
+        };
+        return res.status(200).send(response);
     });
   })
 

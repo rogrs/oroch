@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const bodyParser = require('body-parser');
 
-const port =process.env.PORT || 3000;
+const port =process.env.PORT || 3333;
 
 var index = require('./src/routers/index-routers');
 var behaviour = require('./src/routers/behaviour-routers');
@@ -11,7 +11,7 @@ var upload = require('./src/routers/upload-routers');
 var person = require('./src/routers/person-routers');
 var user = require('./src/routers/user-routers');
 var contact = require('./src/routers/contact-routers');
-
+var job = require('./src/routers/job-routers');
 
 const app = express();
 
@@ -26,11 +26,12 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/index', index);
-app.use('/api/v1/behaviour', behaviour);
-app.use('/api/v1/upload', upload);
-app.use('/api/v1/person', person);
-app.use('/api/v1/user', user);
-app.use('/api/v1/contact', contact);
+app.use('/api/v1/behaviours', behaviour);
+app.use('/api/v1/uploads', upload);
+app.use('/api/v1/persons', person);
+app.use('/api/v1/users', user);
+app.use('/api/v1/contacts', contact);
+app.use('/api/v1/jobs', job);
 
 
 

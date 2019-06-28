@@ -29,7 +29,7 @@ var jobSchema = mongoose.Schema({
     numberRecordsProcessed: Number,
     numberRecordsFailed: Number,
     totalProcessingTime: Number,
-    apiActiveProcessingTime: Float32Array,
+    apiActiveProcessingTime: Number,
     retries: {
         type: Number
     },
@@ -48,3 +48,4 @@ var jobSchema = mongoose.Schema({
 var Job = module.exports = mongoose.model('Job', jobSchema);
 module.exports.get = function (callback, limit) {
         Job.find(callback).limit(limit);
+}

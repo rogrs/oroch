@@ -21,6 +21,22 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+/**
+ * Ensure JSON acceptance
+ */
+app.use((req, res, next) => {
+  let err
+
+  if (!req.accepts('json')) {
+    err = new Error('Not Acceptable')
+    err.status = 406
+  }
+
+  return next(err)
+})
+
+
 app.get('/', (req, res) => {
   res.send('ci with travis');
 });
@@ -36,6 +52,18 @@ app.use('/api/v1/jobs', job);
 
 
 app.use(express.static(__dirname + '/'));
+
+
+/**
+ * ErrorHandler
+ */
+app.use((err, req, res, next) => {
+  res.status(err.status || 500)
+    .json({
+      message: err.message,
+      stack: err.stack
+    })
+})
 
 app.listen(port, () => {
   console.log('Listening on port %s', port );

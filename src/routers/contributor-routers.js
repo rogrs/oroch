@@ -3,29 +3,27 @@ var express = require('express');
 var router = express.Router();
 
 
-Job = require('../models/jobs');
+Contributor = require('../models/contributor');
 
 
 
 router.get('/', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#query_Query-find
-
-
+   
     var options = {
       page: req.query.page || 1,
       limit: req.query.limit || 10
     };
   
-    Job.paginate({}, options).then(function (results) {
+    Contributor.paginate({}, options).then(function (results) {
       res.status(200).json(results);
     });
   })
 
 router.post('/', function (req, res) {
-  Job.findOne({ filename: req.body.filename}, function (err, result) {
+  Contributor.findOne({ pis: req.body.pis}, function (err, result) {
     if (!err) {
       if (!result) {
-        result = new Job(req.body);
+        result = new Contributor(req.body);
         result.id = result._id;
       }
 
@@ -41,11 +39,8 @@ router.post('/', function (req, res) {
 
 
 
-
-
 router.get('/:id', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Job.findById( req.params.id, function ( err, result ) {
+    Contributor.findById( req.params.id, function ( err, result ) {
       if(err) {res.status(400).json(err)}
       res.status(200).json(result);
     });
@@ -54,8 +49,7 @@ router.get('/:id', function (req, res) {
   })
 
 router.put('/:id', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Job.findById( req.params.id, function ( err, result ) {
+  Contributor.findById( req.params.id, function ( err, result ) {
       
       result.updated = Date.now;
       // http://mongoosejs.com/docs/api.html#model_Model-save
@@ -68,13 +62,13 @@ router.put('/:id', function (req, res) {
 
 
   router.delete('/:id', function (req, res) {
-    Job.findByIdAndRemove(req.params.id, (err, result) => {
+    Contributor.findByIdAndRemove(req.params.id, (err, result) => {
         // As always, handle any potential errors:
         if (err) return res.status(400).send(err);
         // We'll create a simple object to send back with a message and the id of the document that was removed
         // You can really do this however you want, though.
         const response = {
-            message: "Job successfully deleted",
+            message: "Contributor successfully deleted",
             id: Job._id
         };
         return res.status(200).send(response);

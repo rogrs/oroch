@@ -12,6 +12,7 @@ var person = require('./src/routers/person-routers');
 var user = require('./src/routers/user-routers');
 var contact = require('./src/routers/contact-routers');
 var job = require('./src/routers/job-routers');
+var contributor = require('./src/routers/contributor-routers');
 
 const app = express();
 
@@ -38,7 +39,7 @@ app.use((req, res, next) => {
 
 
 app.get('/', (req, res) => {
-  res.send('ci with travis');
+  res.send('Its work');
 });
 
 app.use('/api/v1/index', index);
@@ -48,6 +49,7 @@ app.use('/api/v1/persons', person);
 app.use('/api/v1/users', user);
 app.use('/api/v1/contacts', contact);
 app.use('/api/v1/jobs', job);
+app.use('/api/v1/contributors', contributor);
 
 
 

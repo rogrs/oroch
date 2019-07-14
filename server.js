@@ -1,6 +1,6 @@
 const express  = require('express');
 const cors = require('cors');
-
+const conn = require('./src/config/connection');
 const bodyParser = require('body-parser');
 
 const port =process.env.PORT || 3333;
@@ -67,8 +67,12 @@ app.use((err, req, res, next) => {
     })
 })
 
-app.listen(port, () => {
-  console.log('Listening on port %s', port );
+
+  var server = app.listen(port, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log("server listening at http://%s:%s", host, port);
 });
 
 module.exports = app;

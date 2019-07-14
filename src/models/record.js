@@ -1,11 +1,14 @@
 let mongoose = require('mongoose')
 let mongoosePaginate = require('mongoose-paginate-v2');
+let Schema = mongoose.Schema;
 
 
-
-const contributorSchema = mongoose.Schema({
+const recordSchema = mongoose.Schema({
     pis: {type: String,unique: true,required: true},
+   // contributor :{ type: Schema.Types.ObjectId, ref: 'Contributor' },
     name: {type: String,required: true},
+    recordDate: { type: Date},
+    company: String,
     system: {
       updated: {
           type: Date,
@@ -18,4 +21,4 @@ const contributorSchema = mongoose.Schema({
   }
   }).plugin(mongoosePaginate);
   
-  const Contributor = mongoose.model('Contributor', contributorSchema);
+  const Record = mongoose.model('Record', recordSchema);

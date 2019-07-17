@@ -23,8 +23,13 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {
   Person.findOneAndUpdate({}, req.body , {upsert:true}, function(err, result){
-    if (err) return res.send(400, { error: err });
-    return res.status(201).json(result);
+    if (err) { 
+      res.send(500, { error: err });
+    }
+    if (!result){
+        res.send(404, { error: "not found" });
+    }
+     res.status(201).json(result);
   });
 })
 
@@ -32,7 +37,12 @@ router.post('/', function (req, res) {
 router.get('/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
     Person.findById( req.params.id, function ( err, result ) {
-      if(err) {res.status(404).json(err)}
+      if (err) { 
+      res.send(500, { error: err });
+    }
+      if (!result){
+        res.send(404, { error: "not found" });
+    }
       res.status(200).json(result);
     });
   })
@@ -43,11 +53,29 @@ router.put('/:id', function (req, res) {
     result.updatedAt = Date.now;
       // http://mongoosejs.com/docs/api.html#model_Model-save
       result.save( function ( err, result ){
-        if(err) {res.status(404).json(err)}
+        if (err) { 
+      res.send(500, { error: err });
+    }
+        if (!result){
+        res.send(404, { error: "not found" });
+    }
         res.status(200).json(result);
       });
     });
   })
+
+  router.post('/bulk', function (req, res) {
+  return Person.bulk(req.body , function(err, result){
+    if (err) {
+
+      res.send(500, { error: err });
+    }
+    if (!result){
+        res.send(404, { error: "not found" });
+    }
+    return res.status(201).json(result);
+  });
+})
 
 
 module.exports = router;

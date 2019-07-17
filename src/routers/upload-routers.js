@@ -1,31 +1,19 @@
+
 var express = require('express');
+
+
+const fileUpload = require('express-fileupload');
 var router = express.Router();
 
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
-
-var fs = require('fs');
-
-
 router.post('/', function (req, res) {
-	console.log(req.body);
-	console.log(req.body.file);
-	//console.log(req.body, req.files);
-	//console.log(req.body.file);
-	//console.log(req.files.file);
-  /*res.setHeader("Access-Control-Allow-Origin", "*");
-	var arquivo = req.files.file;
-	console.log(arquivo);
-	var temporario = req.files.file.path;
-	var novo = './uploads/' + req.files.file.name;
- 	fs.rename(temporario, novo, function(err){
- 		if(err){
- 			res.status(500).json({error: err})
- 		}
- 		res.json({message: "enviado com sucesso.", file: novo});
- 	});*/
-  })
+
+	if (Object.keys(req.files).length == 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+   console.log(req.files.filename.name);
 
 
+    res.send('File uploaded!');
+});
 
 module.exports = router;

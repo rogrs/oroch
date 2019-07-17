@@ -42,6 +42,10 @@ app.get('/', (req, res) => {
   res.send('Its work');
 });
 
+app.post('/upload', function(req, res) {
+  console.log("okkkk>>>"+req.files.foo); // the uploaded file object
+});
+
 app.use('/api/v1/index', index);
 app.use('/api/v1/behaviours', behaviour);
 app.use('/api/v1/uploads', upload);

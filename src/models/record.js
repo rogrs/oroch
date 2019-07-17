@@ -7,7 +7,8 @@ const recordSchema = mongoose.Schema({
     pis: {type: String,unique: true,required: true},
    // contributor :{ type: Schema.Types.ObjectId, ref: 'Contributor' },
     name: {type: String,required: true},
-    recordDate: { type: Date},
+    date: { type: Date,required: true},
+    clocking: { type: Date,required: true},
     company: String,
     system: {
       updated: {

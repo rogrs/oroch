@@ -6,93 +6,305 @@
 	},
 	"item": [
 		{
-			"name": "GET Contact",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/v1/contact",
-					"protocol": "http",
-					"host": [
-						"localhost"
+			"name": "Persons",
+			"item": [
+				{
+					"name": "Create Person Bulk",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f1a960a8-4ce2-45b2-9a4c-8e015732ab6b",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "3000",
-					"path": [
-						"api",
-						"v1",
-						"contact"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Contact",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Contato-{{$randomInt}}\",\n\t\"email\":\"email-{{$randomInt}}@email.com\"\n}"
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \t\"person_id\":\"122\",\n        \"name\": \"JULIA GOMES DA SILVA chato\",\n        \"age\": 10\n    },\n    {\n    \t\"person_id\":\"123\",\n        \"name\": \"FREDERICO BASTOS SILVA\",\n        \"age\": 23\n    },\n    {\n    \t\"person_id\":\"124\",\n        \"name\": \"IKKI OLIVEIRA BASTOS ROCHA\",\n        \"age\": 19\n    },\n     {\n    \t\"person_id\":\"125\",\n        \"name\": \"GOMES DA SILVA RIBEIRO\",\n        \"age\": 19\n    },\n    {\n    \t\"person_id\":\"{{$guid}}\",\n        \"name\": \"GOMES DA SILVA RIBEIRO\",\n        \"age\": 19\n    }\n]"
+						},
+						"url": {
+							"raw": "{{appOroch}}/api/v1/web/persons/bulk",
+							"host": [
+								"{{appOroch}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"web",
+								"persons",
+								"bulk"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/api/v1/contact",
-					"protocol": "http",
-					"host": [
-						"localhost"
+				{
+					"name": "Create a Person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0582e2e-7471-45d3-b522-55da8829b8e7",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "3000",
-					"path": [
-						"api",
-						"v1",
-						"contact"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create User",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"name\": \"User-{{$randomInt}}\",\n\t\"email\":\"email-{{$randomInt}}@email.com\",\n\t\"password\":\"wewewretrtdf3232@#@#\"\n}"
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"person_id\": \"12312\",\n    \"name\": \"Rogerio www\",\n    \"age\": 37\n}"
+						},
+						"url": {
+							"raw": "{{appOroch}}/api/v1/web/persons",
+							"host": [
+								"{{appOroch}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"web",
+								"persons"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/api/v1/user",
-					"protocol": "http",
-					"host": [
-						"localhost"
+				{
+					"name": "Get Person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "90de2c82-81de-4956-b512-6a6534d366e2",
+								"exec": [
+									"",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "3000",
-					"path": [
-						"api",
-						"v1",
-						"user"
-					]
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{appOroch}}/api/v1/web/persons",
+							"host": [
+								"{{appOroch}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"web",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET User by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ea838304-fe3c-4e6d-80af-47467b1e3ded",
+								"exec": [
+									"",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{appOroch}}/api/v1/web/persons/12312",
+							"host": [
+								"{{appOroch}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"web",
+								"persons",
+								"12312"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0582e2e-7471-45d3-b522-55da8829b8e7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rogerio {{$guid}}\",\n    \"age\": 37\n}"
+						},
+						"url": {
+							"raw": "{{appOroch}}/api/v1/web/persons/1231",
+							"host": [
+								"{{appOroch}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"web",
+								"persons",
+								"1231"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0582e2e-7471-45d3-b522-55da8829b8e7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{appOroch}}/api/v1/web/persons/1231",
+							"host": [
+								"{{appOroch}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"web",
+								"persons",
+								"1231"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

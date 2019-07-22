@@ -46,14 +46,14 @@ app.post('/upload', function(req, res) {
   console.log("okkkk>>>"+req.files.foo); // the uploaded file object
 });
 
-app.use('/api/v1/index', index);
-app.use('/api/v1/behaviours', behaviour);
-app.use('/api/v1/uploads', upload);
-app.use('/api/v1/persons', person);
-app.use('/api/v1/users', user);
-app.use('/api/v1/contacts', contact);
-app.use('/api/v1/jobs', job);
-app.use('/api/v1/contributors', contributor);
+app.use('/api/v1/web/index', index);
+app.use('/api/v1/web/behaviours', behaviour);
+app.use('/api/v1/web/uploads', upload);
+app.use('/api/v1/web/persons', person);
+app.use('/api/v1/web/users', user);
+app.use('/api/v1/web/contacts', contact);
+app.use('/api/v1/web/jobs', job);
+app.use('/api/v1/web/contributors', contributor);
 
 
 

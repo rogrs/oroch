@@ -22,47 +22,70 @@ router.get('/', function (req, res) {
   })
 
 router.post('/', function (req, res) {
-  Person.findOneAndUpdate({}, req.body , {upsert:true}, function(err, result){
-    if (err) { 
-      res.send(500, { error: err });
+  Person.findOne({person_id: req.body.person_id}, function (err, result) {
+    if (!err) {
+      if (!result) {
+        result = new Person(req.body);
+        result.id = result._id;
+      }
+
+      result.save(function (err) {
+        if (err) {
+          res.status(500).json(err);
+        }
+        res.status(201).json(result);
+      });
     }
-    if (!result){
-        res.send(404, { error: "not found" });
-    }
-     res.status(201).json(result);
   });
 })
 
 
 router.get('/:id', function (req, res) {
-    // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Person.findById( req.params.id, function ( err, result ) {
-      if (err) { 
-      res.send(500, { error: err });
-    }
+   Person.findOne({ person_id: req.params.id}, function (err, result) {
+       if (err) { 
+          res.send(500, { error: err });
+      }
       if (!result){
-        res.send(404, { error: "not found" });
-    }
-      res.status(200).json(result);
-    });
-  })
+          res.send(404, { error: "not found" });
+      }
+
+      
+        res.status(200).json(result);
+    
+  });
+})
 
 router.put('/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Person.findById( req.params.id, function ( err, result ) {
-    result.updatedAt = Date.now;
+    Person.findOneAndUpdate( req.params.id,req.body, function ( err, result ) {
       // http://mongoosejs.com/docs/api.html#model_Model-save
-      result.save( function ( err, result ){
+      
         if (err) { 
-      res.send(500, { error: err });
-    }
+           res.send(500, { error: err });
+        }
         if (!result){
-        res.send(404, { error: "not found" });
-    }
+           res.send(404, { error: "not found" });
+        }
         res.status(200).json(result);
-      });
+    
     });
   })
+
+router.delete('/:id', function (req, res) {
+    // http://mongoosejs.com/docs/api.html#model_Model.findById
+    Person.findOneAndRemove( req.params.id, function ( err, result ) {
+      // http://mongoosejs.com/docs/api.html#model_Model-save
+      
+        if (err) { 
+           res.send(500, { error: err });
+        }
+        if (!result){
+           res.send(404, { error: "not found" });
+        }
+        res.status(200).json("deleted");
+    
+    });
+})
 
   router.post('/bulk', function (req, res) {
   return Person.bulk(req.body , function(err, result){

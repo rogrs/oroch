@@ -4,7 +4,12 @@
   "repository": "https://github.com/rogrs/oroch",
   "logo": "https://vignette.wikia.nocookie.net/p__/images/4/4c/Orochi.jpg/revision/latest?cb=20190530162153&path-prefix=protagonist",
   "keywords": ["express", "nodejs", "heroku", "mongodb"],
-  "env": {},
+  "env": {
+    "SECRET_TOKEN": {
+      "description": "Token key that we shall use to create the application authentication",
+      "generator": "secret"
+    }
+  },
   "engines": {
     "node": "12.1.0",
     "npm": "6.x"
@@ -13,14 +18,10 @@
     "start": "npm start"
   },
   "formation": {},
-  "addons": [
-    {
-      "plan": "mongolab"
-    }
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ]
+  "addons": [{
+    "plan": "mongolab"
+  }],
+  "buildpacks": [{
+    "url": "heroku/nodejs"
+  }]
 }

@@ -103,7 +103,7 @@ router.delete('/:id', function (req, res) {
 })
 
 router.post('/bulk', function (req, res) {
-  return Person.bulk(req.body, function (err, result) {
+   Person.bulk(req.body, function (err, result) {
     if (err) {
 
       res.send(500, { error: err });

@@ -3,7 +3,7 @@ let mongoosePaginate = require('mongoose-paginate-v2');
 
 let  behaviourSchema  = new mongoose.Schema({
       name :{type: String, required: true},
-      type: {type: String, unique: true, required: true},
+      type: {type: String, unique: true, required: true, lowercase: true},
       dateField: {type: String, required: true},
       structure: {type: Object, required: true},
       valid: Boolean,

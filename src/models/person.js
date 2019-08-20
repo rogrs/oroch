@@ -83,3 +83,11 @@ module.exports.bulk = (async function (cursor) {
     }
   }
 });
+
+exports.listPersons = function(Person) {
+  return function(req, res) {
+    Person.find({}, function(error, persons) {
+      res.render('list_persons', { person_id : person_id });
+    });
+  }
+};
